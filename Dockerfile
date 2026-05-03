@@ -7,12 +7,13 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 WORKDIR /app
 
-# System libs only — Python is managed by uv (no apt PPA needed)
+# libsndfile1 for soundfile, ffmpeg-minimal for audio decoding (mp3 support)
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libsndfile1 \
         ffmpeg \
         curl \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # uv installs Python 3.12 from python-build-standalone (no PPA, no network issues)
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
@@ -22,8 +23,8 @@ RUN uv python install 3.12
 # pyproject.toml or uv.lock change, not when handler.py changes
 COPY pyproject.toml uv.lock ./
 
-# Install production deps into an isolated venv
-RUN uv sync --frozen --no-dev
+# Install production deps — purge uv cache after to save ~500MB
+RUN uv sync --frozen --no-dev && uv cache clean
 
 # Activate venv for all subsequent RUN / CMD
 ENV PATH="/app/.venv/bin:$PATH"
