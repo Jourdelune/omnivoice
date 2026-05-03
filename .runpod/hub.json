@@ -1,0 +1,22 @@
+{
+  "title": "OmniVoice",
+  "description": "Massively multilingual zero-shot TTS supporting 600+ languages. Features voice cloning from a short reference audio, voice design via speaker attributes, and fine-grained control (non-verbal symbols, pronunciation correction). Built on a diffusion language model architecture with RTF as low as 0.025.",
+  "type": "serverless",
+  "category": "audio",
+  "iconUrl": "https://huggingface.co/k2-fsa/OmniVoice/resolve/main/logo.png",
+  "config": {
+    "runsOn": "GPU",
+    "containerDiskInGb": 20,
+    "presets": [
+      {
+        "name": "Voice Cloning",
+        "defaults": {}
+      },
+      {
+        "name": "Voice Design",
+        "defaults": {}
+      }
+    ],
+    "env": []
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "tests": [
+    {
+      "name": "auto_voice",
+      "input": {
+        "text": "Hello, this is an automatic voice test."
+      },
+      "timeout": 60000
+    },
+    {
+      "name": "voice_design_female_british",
+      "input": {
+        "text": "This is a voice design test with a british accent.",
+        "instruct": "female, low pitch, british accent"
+      },
+      "timeout": 60000
+    },
+    {
+      "name": "voice_design_male_whisper",
+      "input": {
+        "text": "This is a whisper voice test.",
+        "instruct": "male, whisper"
+      },
+      "timeout": 60000
+    },
+    {
+      "name": "nonverbal_tags",
+      "input": {
+        "text": "[laughter] You really got me! I didn't see that coming."
+      },
+      "timeout": 60000
+    },
+    {
+      "name": "generation_params_fast",
+      "input": {
+        "text": "Faster inference using fewer diffusion steps.",
+        "num_step": 16,
+        "speed": 1.2
+      },
+      "timeout": 60000
+    }
+  ],
+  "config": {
+    "gpuTypeId": "NVIDIA GeForce RTX 4090",
+    "gpuCount": 1,
+    "env": [],
+    "allowedCudaVersions": [
+      "12.7",
+      "12.6",
+      "12.5",
+      "12.4",
+      "12.3",
+      "12.2",
+      "12.1",
+      "12.0"
+    ]
+  }
+}
