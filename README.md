@@ -249,3 +249,5 @@ docker run --rm --gpus all -p 8000:8000 youruser/omnivoice-worker:latest \
 ```
 
 On RunPod, set **Model** to `k2-fsa/OmniVoice` in the endpoint settings to enable model caching.
+
+[![Runpod](https://api.runpod.io/badge/Jourdelune/omnivoice)](https://console.runpod.io/hub/Jourdelune/omnivoice)
