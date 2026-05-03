@@ -31,4 +31,3 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY src/handler.py .
 
 CMD ["python", "-u", "handler.py"]
-docker run --rm --gpus all -p 8000:8000 jourdelune876/omnivoice-worker:latest python -u handler.py --rp_serve_api --rp_api_host 0.0.0.0
