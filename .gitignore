@@ -1,0 +1,13 @@
+*.pyc
+.ruff_cache
+__pycache__/
+.env
+.venv
+*.onnx
+*.onnx.json
+.langgraph_api
+test.py
+source.md
+task.md
+script.txt
+test.py
