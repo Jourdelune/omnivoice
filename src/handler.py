@@ -43,7 +43,7 @@ def handler(job):
         return {"error": "Missing required field: 'text'"}
 
     # ── mode detection ────────────────────────────────────────────────────────
-    # Voice cloning  → ref_audio present (ref_text optional, Whisper fallback)
+    # Voice cloning  → ref_audio + ref_text required
     # Voice design   → instruct present, no ref_audio
     # Auto voice     → neither ref_audio nor instruct
     ref_audio_b64 = job_input.get("ref_audio")
@@ -56,7 +56,10 @@ def handler(job):
     tmp_path = None
     try:
         if ref_audio_b64:
-            # Voice cloning
+            # Voice cloning — ref_text is required to avoid loading Whisper
+            if not ref_text:
+                return {"error": "Missing required field: 'ref_text' (required when 'ref_audio' is provided)"}
+
             ref_audio_format = job_input.get("ref_audio_format", "wav")
             try:
                 tmp_path = _decode_ref_audio(ref_audio_b64, ref_audio_format)
@@ -64,9 +67,7 @@ def handler(job):
                 return {"error": str(exc)}
 
             generate_kwargs["ref_audio"] = tmp_path
-            if ref_text:
-                generate_kwargs["ref_text"] = ref_text
-            # if ref_text omitted, OmniVoice auto-transcribes via Whisper
+            generate_kwargs["ref_text"] = ref_text
 
         elif instruct:
             # Voice design

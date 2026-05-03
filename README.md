@@ -42,7 +42,7 @@ Clone a voice from a short reference audio (3–10 seconds recommended).
 
 | Field | Type | Description |
 |---|---|---|
-| `ref_text` | string | Transcription of the reference audio. If omitted, Whisper auto-transcribes it. |
+| `ref_text` | string | Transcription of the reference audio. **Required** when `ref_audio` is provided. |
 
 **Example**
 

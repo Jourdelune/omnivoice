@@ -155,14 +155,15 @@ class TestVoiceCloning:
         }})
         assert_valid_audio_output(result)
 
-    def test_cloning_without_ref_text_whisper_fallback(self, ref_audio_b64):
-        """ref_text omitted → OmniVoice auto-transcribes via Whisper."""
+    def test_cloning_without_ref_text_returns_error(self, ref_audio_b64):
+        """ref_text is required when ref_audio is provided."""
         result = _runsync({"input": {
             "text": "Hello world, this is a cloning test.",
             "ref_audio": ref_audio_b64,
             "ref_audio_format": "mp3",
         }})
-        assert_valid_audio_output(result)
+        assert result.get("status") == "FAILED"
+        assert "ref_text" in (_extract_error(result) or "")
 
     def test_cloning_with_language_id(self, ref_audio_b64):
         result = _runsync({"input": {
