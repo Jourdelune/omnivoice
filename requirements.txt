@@ -1,0 +1,3 @@
+runpod>=1.9.0
+omnivoice
+soundfile>=0.13.1
